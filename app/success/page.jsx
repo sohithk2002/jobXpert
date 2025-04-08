@@ -1,9 +1,10 @@
+// app/success/page.jsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function SuccessClient() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [loading, setLoading] = useState(true);
@@ -12,16 +13,12 @@ export default function SuccessClient() {
   useEffect(() => {
     async function fetchSession() {
       if (!sessionId) return;
-      try {
-        const res = await fetch(`/api/stripe-session?session_id=${sessionId}`);
-        const data = await res.json();
-        setSession(data);
-      } catch (err) {
-        console.error("Error fetching session", err);
-      } finally {
-        setLoading(false);
-      }
+      const res = await fetch(`/api/stripe-session?session_id=${sessionId}`);
+      const data = await res.json();
+      setSession(data);
+      setLoading(false);
     }
+
     fetchSession();
   }, [sessionId]);
 
@@ -29,13 +26,19 @@ export default function SuccessClient() {
 
   return (
     <div className="max-w-xl mx-auto mt-10 text-center space-y-4">
-      <h1 className="text-3xl font-bold text-green-600">✅ Subscription Confirmed!</h1>
-      <p className="text-lg">
-        Thanks, <span className="font-medium">{session?.customer_details?.email}</span>!
-      </p>
+      <h1 className="text-3xl font-bold">✅ Subscription Confirmed!</h1>
+      <p className="text-lg">Thanks, {session?.customer_details?.email}!</p>
       <p className="text-sm text-muted-foreground">
         You are now subscribed to our PRO plan.
       </p>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<p className="text-center mt-10">Loading...</p>}>
+      <SuccessContent />
+    </Suspense>
   );
 }
