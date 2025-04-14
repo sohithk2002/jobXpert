@@ -1,4 +1,3 @@
-// app/success/page.jsx
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
@@ -23,7 +22,7 @@ function SuccessContent() {
         setSession(data);
       } catch (err) {
         setError("Something went wrong. Please contact support.");
-        console.error(err);
+        console.error("⚠️ Error fetching session:", err);
       } finally {
         setLoading(false);
       }
@@ -32,7 +31,7 @@ function SuccessContent() {
     fetchSession();
   }, [sessionId]);
 
-  if (loading) return <p className="text-center mt-10">🔄 Fetching your subscription details...</p>;
+  if (loading) return <p className="text-center mt-10">🔄 Fetching subscription details...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (
