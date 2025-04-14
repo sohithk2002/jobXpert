@@ -15,7 +15,7 @@ function SuccessContent() {
       if (!sessionId) return;
 
       try {
-        const res = await fetch(`/api/stripe-session?session_id=${sessionId}`);
+        const res = await fetch(`/stripe-session?session_id=${sessionId}`);
         if (!res.ok) throw new Error("Failed to fetch session details");
 
         const data = await res.json();
