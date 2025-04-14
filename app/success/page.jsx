@@ -15,14 +15,14 @@ function SuccessContent() {
       if (!sessionId) return;
 
       try {
-        const res = await fetch(`/stripe-session?session_id=${sessionId}`);
+        const res = await fetch(`/api/stripe-session?session_id=${sessionId}`);
         if (!res.ok) throw new Error("Failed to fetch session details");
 
         const data = await res.json();
         setSession(data);
       } catch (err) {
         setError("Something went wrong. Please contact support.");
-        console.error("⚠️ Error fetching session:", err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -31,21 +31,36 @@ function SuccessContent() {
     fetchSession();
   }, [sessionId]);
 
-  if (loading) return <p className="text-center mt-10">🔄 Fetching subscription details...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  if (loading) {
+    return <p className="text-center mt-10 text-white">Fetching subscription details...</p>;
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="border border-red-500 text-red-500 bg-black p-8 rounded-md text-center">
+          ❌ {error}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-xl mx-auto mt-16 text-center space-y-6 bg-white p-8 shadow-xl rounded-xl">
-      <h1 className="text-4xl font-bold text-green-600">🎉 Payment Successful!</h1>
-      <p className="text-lg font-medium text-gray-800">
-        Thank you, <span className="text-blue-600">{session?.customer_details?.email}</span>!
-      </p>
-      <p className="text-gray-600">
-        You’ve successfully subscribed to our <strong>PRO plan</strong>. You now have unlimited access to all features.
-      </p>
-      <div className="mt-6">
+    <div className="flex justify-center items-center h-screen">
+      <div className="border border-green-500 text-green-500 p-8 rounded-md text-center max-w-md w-full">
+        <h2 className="text-2xl font-bold mb-2">✅ Payment Successful</h2>
+        <p className="text-white mb-4">
+          Thank you,{" "}
+          <span className="text-blue-400 font-semibold">
+            {session?.customer_details?.email}
+          </span>
+          !
+        </p>
+        <p className="text-white mb-6">
+          You’ve successfully subscribed to our <strong>PRO plan</strong>. You now have unlimited access to all tools.
+        </p>
         <a href="/dashboard">
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
             Go to Dashboard
           </button>
         </a>
@@ -56,7 +71,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<p className="text-center mt-10">Loading subscription details...</p>}>
+    <Suspense fallback={<p className="text-center mt-10 text-white">Loading...</p>}>
       <SuccessContent />
     </Suspense>
   );
