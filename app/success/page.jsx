@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { CheckCircle } from "lucide-react";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -22,7 +23,7 @@ function SuccessContent() {
         setSession(data);
       } catch (err) {
         setError("Something went wrong. Please contact support.");
-        console.error(err);
+        console.error("⚠️ Error fetching session:", err);
       } finally {
         setLoading(false);
       }
@@ -32,13 +33,17 @@ function SuccessContent() {
   }, [sessionId]);
 
   if (loading) {
-    return <p className="text-center mt-10 text-white">Fetching subscription details...</p>;
+    return (
+      <p className="text-center mt-10 text-white">
+        🔄 Fetching subscription details...
+      </p>
+    );
   }
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="border border-red-500 text-red-500 bg-black p-8 rounded-md text-center">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="bg-red-900 text-red-400 px-6 py-4 rounded-lg border border-red-500 shadow-md">
           ❌ {error}
         </div>
       </div>
@@ -46,24 +51,27 @@ function SuccessContent() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="border border-green-500 text-green-500 p-8 rounded-md text-center max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-2">✅ Payment Successful</h2>
-        <p className="text-white mb-4">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="bg-green-950 border border-green-400 text-white px-10 py-8 rounded-lg shadow-lg w-[400px] text-center">
+        <h1 className="text-2xl font-semibold text-green-400 mb-2 flex items-center justify-center gap-2">
+          ✅ Payment Successful!
+        </h1>
+        <p className="text-md">
           Thank you,{" "}
-          <span className="text-blue-400 font-semibold">
+          <span className="text-blue-300 font-semibold underline">
             {session?.customer_details?.email}
           </span>
-          !
         </p>
-        <p className="text-white mb-6">
-          You’ve successfully subscribed to our <strong>PRO plan</strong>. You now have unlimited access to all tools.
+        <p className="text-sm text-green-200 mt-2">
+          You’ve successfully subscribed to our <strong>PRO plan</strong>. You now have unlimited access to all features.
         </p>
-        <a href="/dashboard">
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-            Go to Dashboard
-          </button>
-        </a>
+        <div className="mt-5">
+          <a href="/dashboard">
+            <button className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded transition">
+              Go to Dashboard
+            </button>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -71,7 +79,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<p className="text-center mt-10 text-white">Loading...</p>}>
+    <Suspense fallback={<p className="text-center mt-10 text-white">Loading subscription details...</p>}>
       <SuccessContent />
     </Suspense>
   );
