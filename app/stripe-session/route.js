@@ -1,5 +1,6 @@
-import Stripe from "stripe";
+// app/api/stripe-session/route.js
 
+import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function GET(req) {
@@ -16,8 +17,8 @@ export async function GET(req) {
     });
 
     return new Response(JSON.stringify(session), { status: 200 });
-  } catch (error) {
-    console.error("❌ Stripe session fetch error:", error);
-    return new Response("Failed to fetch session", { status: 500 });
+  } catch (err) {
+    console.error("❌ Stripe session error:", err.message);
+    return new Response("Failed to retrieve session", { status: 500 });
   }
 }
