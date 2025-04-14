@@ -71,20 +71,21 @@ export async function improveWithAI({ current, type }) {
   if (!user) throw new Error("User not found");
 
   const prompt = `
-    As an expert resume writer, improve the following ${type} description for a ${user.industry} professional.
-    Make it more impactful, quantifiable, and aligned with industry standards.
-    Current content: "${current}"
+You are a professional resume writer for the ${user.industry || "tech"} industry.
 
-    Requirements:
-    1. Use action verbs
-    2. Include metrics and results where possible
-    3. Highlight relevant technical skills
-    4. Keep it concise but detailed
-    5. Focus on achievements over responsibilities
-    6. Use industry-specific keywords
-    
-    Format the response as a single paragraph without any additional text or explanations.
-  `;
+Please improve the following ${type.toLowerCase()} section. Make it:
+- Result-oriented
+- Concise but impactful
+- Include numbers or achievements
+- Use strong action verbs and industry buzzwords
+- Do not mention that you're improving it; just return the enhanced paragraph.
+
+Here is the content:
+"""
+${current}
+"""
+`;
+
 
   try {
     const result = await model.generateContent(prompt);
