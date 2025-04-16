@@ -13,6 +13,7 @@ model User {
   email         String    @unique
   name          String?
   imageUrl      String?
+  plan          String    @default("free") 
   industry      String?    // Combined industry-subindustry (e.g., "tech-software-development")
   industryInsight IndustryInsight? @relation(fields: [industry], references: [industry])
   createdAt     DateTime  @default(now())
