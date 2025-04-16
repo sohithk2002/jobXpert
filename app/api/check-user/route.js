@@ -1,3 +1,4 @@
+// app/api/check-user/route.js
 import { currentUser } from "@clerk/nextjs/server";
 import db from "@/lib/prisma";
 
@@ -8,16 +9,25 @@ export async function GET() {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
   }
 
-  const existingUser = await db.user.findUnique({
-    where: { clerkUserId: user.id },
-  });
-
-  // ✅ Already in DB? Just return early.
-  if (existingUser) {
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  }
-
   try {
+    // Try to find the user by Clerk ID
+    const existingUser = await db.user.findUnique({
+      where: { clerkUserId: user.id },
+    });
+
+    if (existingUser) {
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    }
+
+    // ✅ Also check by email in case Clerk ID changed but email is same
+    const userByEmail = await db.user.findUnique({
+      where: { email: user.emailAddresses[0].emailAddress },
+    });
+
+    if (userByEmail) {
+      return new Response(JSON.stringify({ ok: true, duplicateEmail: true }), { status: 200 });
+    }
+
     await db.user.create({
       data: {
         clerkUserId: user.id,

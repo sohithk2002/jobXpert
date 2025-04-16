@@ -14,7 +14,12 @@ export async function GET(req) {
       expand: ["customer", "subscription"],
     });
 
-    return new Response(JSON.stringify(session), { status: 200 });
+    return new Response(JSON.stringify(session), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (err) {
     console.error("❌ Stripe session error:", err.message);
     return new Response("Failed to retrieve session", { status: 500 });
