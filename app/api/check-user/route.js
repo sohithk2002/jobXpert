@@ -8,21 +8,26 @@ export async function GET() {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
   }
 
-  const existingUser = await db.user.findUnique({
-    where: { clerkUserId: user.id },
+  const existingUser = await db.user.findFirst({
+    where: {
+      OR: [
+        { clerkUserId: user.id },
+        { email: user.emailAddresses[0].emailAddress },
+      ],
+    },
   });
 
   if (existingUser) {
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   }
 
-  const newUser = await db.user.create({
+  await db.user.create({
     data: {
       clerkUserId: user.id,
       name: `${user.firstName} ${user.lastName}`,
       email: user.emailAddresses[0].emailAddress,
       imageUrl: user.imageUrl,
-      plan: "pro", // or "free" — you’ll sync with Stripe later
+      plan: "pro",
     },
   });
 
