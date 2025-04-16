@@ -1,0 +1,101 @@
+.
+├── actions
+│   ├── cover-letter.js
+│   ├── dashboard.js
+│   ├── interview.js
+│   ├── resume.js
+│   └── user.js
+├── app
+│   ├── (auth)
+│   │   ├── layout.js
+│   │   ├── sign-in
+│   │   └── sign-up
+│   ├── (main)
+│   │   ├── ai-cover-letter
+│   │   ├── dashboard
+│   │   ├── interview
+│   │   ├── layout.jsx
+│   │   ├── onboarding
+│   │   └── resume
+│   ├── api
+│   │   ├── inngest
+│   │   ├── stripe
+│   │   └── subscription-status
+│   ├── cancel
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.js
+│   ├── lib
+│   │   ├── helper.js
+│   │   └── schema.js
+│   ├── not-found.jsx
+│   ├── page.js
+│   ├── pricing
+│   │   └── page.jsx
+│   ├── stripe-session
+│   │   └── route.js
+│   └── success
+│       └── page.jsx
+├── components
+│   ├── CheckoutButton.jsx
+│   ├── header.jsx
+│   ├── hero.jsx
+│   ├── theme-provider.jsx
+│   └── ui
+│       ├── accordion.jsx
+│       ├── alert-dialog.jsx
+│       ├── badge.jsx
+│       ├── button.jsx
+│       ├── card.jsx
+│       ├── dialog.jsx
+│       ├── dropdown-menu.jsx
+│       ├── input.jsx
+│       ├── label.jsx
+│       ├── progress.jsx
+│       ├── radio-group.jsx
+│       ├── select.jsx
+│       ├── sonner.jsx
+│       ├── tabs.jsx
+│       └── textarea.jsx
+├── components.json
+├── data
+│   ├── faqs.js
+│   ├── features.js
+│   ├── howItWorks.js
+│   ├── industries.js
+│   └── testimonial.js
+├── eslint.config.mjs
+├── hooks
+│   └── use-fetch.js
+├── jsconfig.json
+├── lib
+│   ├── checkUser.js
+│   ├── inngest
+│   │   ├── client.js
+│   │   └── function.js
+│   ├── prisma.js
+│   └── utils.js
+├── middleware.js
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── prisma
+│   ├── migrations
+│   │   ├── 20250114060115_create_models
+│   │   ├── 20250114064152_update_user
+│   │   ├── 20250117091806_update
+│   │   ├── 20250120090020_hh
+│   │   ├── 20250120124732_update
+│   │   ├── 20250408205022_add_plan_to_user
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── project-structure.txt
+├── public
+│   ├── banner.jpeg
+│   ├── banner2.jpeg
+│   ├── banner3.jpeg
+│   └── logo.png
+└── tailwind.config.mjs
+
+36 directories, 63 files
