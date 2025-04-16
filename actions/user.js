@@ -9,22 +9,34 @@ export async function getUserOnboardingStatus() {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  // Try finding user in DB
-  let user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-    select: { industry: true },
+  const clerkUser = await currentUser();
+  if (!clerkUser) throw new Error("Clerk user object not found");
+
+  const email = clerkUser.emailAddresses?.[0]?.emailAddress;
+
+  let user = await db.user.findFirst({
+    where: {
+      OR: [
+        { clerkUserId: userId },
+        { email }
+      ]
+    },
+    select: { id: true, industry: true, clerkUserId: true }
   });
 
-  // 🧠 If user doesn't exist in DB, create them using Clerk
-  if (!user) {
-    const clerkUser = await currentUser();
-    if (!clerkUser) throw new Error("Clerk user object not found");
+  if (user && !user.clerkUserId) {
+    await db.user.update({
+      where: { id: user.id },
+      data: { clerkUserId: userId }
+    });
+  }
 
+  if (!user) {
     user = await db.user.create({
       data: {
         clerkUserId: userId,
         name: `${clerkUser.firstName ?? "New"} ${clerkUser.lastName ?? "User"}`,
-        email: clerkUser.emailAddresses?.[0]?.emailAddress ?? `${userId}@example.com`,
+        email: email ?? `${userId}@example.com`,
         imageUrl: clerkUser.imageUrl ?? "",
         industry: "",
         experience: 0,
