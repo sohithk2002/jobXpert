@@ -9,9 +9,23 @@ const isProtectedRoute = createRouteMatcher([
   "/onboarding(.*)",
 ]);
 
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/pricing(.*)",
+  "/success(.*)",
+  "/cancel(.*)",
+  "/api/stripe-session(.*)", // to let Stripe fetch succeed
+]);
+
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
 
+  // ✅ Let public routes pass
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
+  // 🔐 Redirect to sign-in if protected and not logged in
   if (!userId && isProtectedRoute(req)) {
     const { redirectToSignIn } = await auth();
     return redirectToSignIn();
@@ -22,9 +36,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };
