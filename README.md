@@ -1,9 +1,17 @@
 # 🧠 JobXpert – AI-Powered Career Assistant
 
-<!-- LIVE DEMO -->
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue.svg?style=for-the-badge)](https://inspireai.digital) <!-- LICENSE -->[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT) <!-- NEXT.JS -->
-![Next.js](https://img.shields.io/badge/Built%20with-Next.js-000?logo=next.js&logoColor=white&style=for-the-badge) <!-- PRISMA -->![Prisma](https://img.shields.io/badge/ORM-Prisma-2D3748?logo=prisma&logoColor=white&style=for-the-badge) <!-- POSTGRES -->![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL-4169E1?logo=postgresql&logoColor=white&style=for-the-badge)
-<!-- GOOGLE AI -->![Gemini AI](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?logo=google&logoColor=white&style=for-the-badge) <!-- CLERK -->![Clerk](https://img.shields.io/badge/Auth-Clerk-FD5750?logo=clerk&logoColor=white&style=for-the-badge) <!-- STRIPE --> ![Stripe](https://img.shields.io/badge/Payments-Stripe-008CDD?logo=stripe&logoColor=white&style=for-the-badge) <!-- TAILWIND -->![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_CSS-38B2AC?logo=tailwindcss&logoColor=white&style=for-the-badge) <!-- DEPLOYMENT -->![Render](https://img.shields.io/badge/Deployed%20on-Render-35495E?logo=render&logoColor=white&style=for-the-badge) <!-- VERSION -->![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen?style=for-the-badge)
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Clerk-FD5750?logo=clerk&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Gemini%20AI-4285F4?logo=google&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Stripe-008CDD?logo=stripe&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Inngest-20232A?logo=vercel&logoColor=white&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Render-35495E?logo=render&logoColor=white&style=for-the-badge" />
+</p>
+
 
 
 JobXpert is a **full-stack AI-powered career platform** that helps job seekers build professional resumes, receive personalized industry insights, generate custom cover letters, and practice mock interviews — all from a unified dashboard. It’s built with **Next.js 15**, **Prisma**, **Tailwind**, **Gemini AI**, and **Stripe**, deployed on **Render with PostgreSQL on Neon** and **secured using Clerk and Helmet.js**.
